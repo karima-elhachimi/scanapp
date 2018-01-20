@@ -15,10 +15,11 @@
 
 <ion-content padding>
 
+  <p>Eerste snummer in database: {{sdata[0]}}</p>
   <div *ngIf="scanResults">
 
     <p>Scanned studentnr: {{scanResults.text}}</p>
-    <p>Eerste snummer in database: {{sdata[0]}}</p>
+
     <button ion-button (click)="addScannedStudentToDB()">
 
     </button>

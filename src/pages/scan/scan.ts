@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner} from "@ionic-native/barcode-scanner";
+
 import { StudentsDatabaseProvider } from "../../providers/students-database/students-database";
 
 /**
@@ -37,6 +38,10 @@ export class ScanPage {
 
 
     console.log(`Scanned card was: ${this.scanResults}`);
+  }
+
+  addScannedStudentCard(){
+
   }
 
 }

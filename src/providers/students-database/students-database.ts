@@ -67,7 +67,7 @@ export class StudentsDatabaseProvider {
 
         this.studentdata = [];
 
-        let docs = result.rows.map((row) => {
+        result.rows.map((row) => {
           this.studentdata.push(row.doc);
         });
 
@@ -91,6 +91,37 @@ export class StudentsDatabaseProvider {
     if(this.scanneddata){
       return Promise.resolve(this.scanneddata);
     }
+
+    return new Promise(resolve => {
+
+      this.dbScannedStudents.allDocs({
+
+        include_docs: true
+
+      }).then((result) => {
+
+        this.scanneddata = [];
+
+        result.rows.map((row) => {
+          this.scanneddata.push(row.doc);
+        });
+
+        resolve(this.scanneddata);
+
+        this.dbScannedStudents.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
+          this.handleScannedChange(change);
+        });
+
+      }).catch((error) => {
+
+        console.log(error);
+
+      });
+
+    });
+
+
+
   }
 
   createScannedStudent(student){

@@ -17,6 +17,7 @@ import { StudentsDatabaseProvider} from "../../providers/students-database/stude
 export class ListPage {
 
   scannedStudents: any;
+
   constructor(public studentService: StudentsDatabaseProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 

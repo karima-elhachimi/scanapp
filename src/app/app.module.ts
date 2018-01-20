@@ -14,8 +14,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 //zelf toegevoegd: //
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { StudentsDatabaseProvider } from '../providers/students-database/students-database';
-import {ListPage} from "../pages/list/list";
-import {ScanPage} from "../pages/scan/scan";
+import { ListPage } from "../pages/list/list";
+import { ScanPage } from "../pages/scan/scan";
 
 
 @NgModule({
@@ -42,7 +42,7 @@ import {ScanPage} from "../pages/scan/scan";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-
+//zelf toegevoegd:
     BarcodeScanner,
     StudentsDatabaseProvider
   ]
