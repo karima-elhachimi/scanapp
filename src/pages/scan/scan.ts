@@ -47,6 +47,28 @@ export class ScanPage {
 
   addScannedStudentCard(){
 
+    let scannedStudent = this.findStudent(this.scanResults.text);
+    this.studentService.createScannedStudent(scannedStudent);
+
+
   }
+
+  findStudent(snr){
+
+    let student: any;
+
+    for(let i = 0; i < this.sdata.length; i++) {
+      if (snr == this.sdata[i].snr) {
+        student = this.sdata[i];
+      }
+      else
+        student = null;
+
+    }
+
+    return student;
+
+  }
+
 
 }

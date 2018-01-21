@@ -66,11 +66,9 @@ export class StudentsDatabaseProvider {
       }).then((result) => {
 
         this.studentdata = [];
-
         result.rows.map((row) => {
           this.studentdata.push(row.doc);
         });
-
         resolve(this.studentdata);
 
         this.dbStudentData.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
@@ -79,7 +77,7 @@ export class StudentsDatabaseProvider {
 
       }).catch((error) => {
 
-        console.log(error);
+        console.log("getting student data failed"+ error);
 
       });
 
