@@ -4,6 +4,7 @@ import { BarcodeScanner} from "@ionic-native/barcode-scanner";
 
 import { StudentsDatabaseProvider } from "../../providers/students-database/students-database";
 
+
 /**
  * Generated class for the ScanPage page.
  *
@@ -27,7 +28,11 @@ export class ScanPage {
 
   ionViewDidLoad() {
     this.studentService.getStudentData().then((data) => {
+      console.log(`student data from studentservice getstudentdata: ${data[0].naam}`);
+
       this.sdata = data;
+
+
     });
     console.log('ionViewDidLoad ScanPage');
   }

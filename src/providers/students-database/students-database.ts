@@ -126,6 +126,7 @@ export class StudentsDatabaseProvider {
 
   createScannedStudent(student){
 
+    student.timestamp = new Date();
     this.dbScannedStudents.post(student);
   }
 
