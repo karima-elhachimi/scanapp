@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>list scanned students</ion-title>
+    <ion-title>Scanned students</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,19 +15,24 @@
 
 <ion-content padding>
 
-  <ion-list no-lines>
-
-    <ion-item-sliding *ngFor="let student of scannedStudents">
-
-      <ion-item>
-
-        {{student.name}}
-
-      </ion-item>
 
 
-    </ion-item-sliding>
+  <ion-grid >
+    <ion-row class="list-header" >
+      <ion-col>
+         Naam
+      </ion-col>
+      <ion-col>
+        Datum
+      </ion-col>
 
-  </ion-list>
+    </ion-row>
+    <ion-row *ngFor="let student of scannedStudents">
+      <ion-col>{{student.naam}}</ion-col>
+      <ion-col>{{student.timestamp}}</ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>

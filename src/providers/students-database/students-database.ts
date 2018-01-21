@@ -136,11 +136,14 @@ export class StudentsDatabaseProvider {
 
   }
 
-  deleteScannedStudents(student){
+  deleteScannedStudents(){
 
-    this.dbScannedStudents.remove(student).catch((err) => {
-      console.log(err);
-    });
+    for(let i = 0; i < this.scanneddata; i++){
+      this.dbScannedStudents.remove(this.scanneddata[i]).catch((err) => {
+        console.log(err);
+      });
+    }
+
 
   }
 

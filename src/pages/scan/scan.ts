@@ -21,6 +21,7 @@ export class ScanPage {
 
 
   sdata: any;
+  scannedStudent: any;
   scanResults: {};
 
   constructor(private barcodeScanner: BarcodeScanner, public studentService: StudentsDatabaseProvider,  public navCtrl: NavController, public navParams: NavParams) {
@@ -41,24 +42,19 @@ export class ScanPage {
 
     this.scanResults = await this.barcodeScanner.scan();
 
+    this.scannedStudent = await this.findStudent(this.scanResults);
 
-    console.log(`Scanned card was: ${this.scanResults}`);
+    console.log(`Scanned card was: ${this.scannedStudent.naam}`);
   }
 
-  addScannedStudentCard(){
-
-    let scannedStudent = this.findStudent(this.scanResults.text);
-    this.studentService.createScannedStudent(scannedStudent);
 
 
-  }
-
-  findStudent(snr){
+  findStudent(snrtofind){
 
     let student: any;
 
     for(let i = 0; i < this.sdata.length; i++) {
-      if (snr == this.sdata[i].snr) {
+      if (snrtofind.text == this.sdata[i].snr) {
         student = this.sdata[i];
       }
       else
