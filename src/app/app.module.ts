@@ -17,11 +17,10 @@ import { ListPage } from "../pages/list/list";
 import { ScanPage } from "../pages/scan/scan";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { StudentsDatabaseProvider } from '../providers/students-database/students-database';
-
-
 import { HttpClient } from "@angular/common/http";
-
 import { HttpClientModule } from "@angular/common/http";
+import { File } from '@ionic-native/file';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 @NgModule({
   declarations: [
@@ -54,7 +53,9 @@ import { HttpClientModule } from "@angular/common/http";
     HttpClient,
     BarcodeScanner,
     StudentsDatabaseProvider,
-    HttpClientModule
+    HttpClientModule,
+    File,
+    EmailComposer
   ]
 })
 export class AppModule {}
