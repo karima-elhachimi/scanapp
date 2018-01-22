@@ -28,22 +28,22 @@ export class StudentsDatabaseProvider {
     console.log('Hello StudentsDatabaseProvider Provider');
 
     //snummers staan in deze database
-    this.dbStudentData = new PouchDB('studentdata');
+    this.dbStudentData = new PouchDB('https://66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix.cloudant.com/snummers');
 
-    this.remoteStudents = 'https://66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix.cloudant.com/snummers';
-
-
+    //this.remoteStudents = 'https://66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix.cloudant.com/snummers';
 
 
 
 
-    let options1 = {
+
+
+    /*let options1 = {
       live: true,
       retry: true,
       continuous: true
-    };
+    };*/
 
-    this.dbStudentData.sync(this.remoteStudents, options1);
+    //this.dbStudentData.sync(this.remoteStudents, options1);
 
     //gescande studenten staan hier:
     this.dbScannedStudents= new PouchDB('scannedstudents');
