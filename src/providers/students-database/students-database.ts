@@ -51,7 +51,7 @@ export class StudentsDatabaseProvider {
   }
 
 
-  getStudentData(){
+  getStudentDataAsync(){
 
     if(this.studentdata){
       return Promise.resolve(this.studentdata);
@@ -70,6 +70,7 @@ export class StudentsDatabaseProvider {
           this.studentdata.push(row.doc);
         });
         resolve(this.studentdata);
+        console.log("studentdata in service is resolved");
 
         this.dbStudentData.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
           this.handleStudentChange(change);
@@ -81,6 +82,12 @@ export class StudentsDatabaseProvider {
 
       });
 
+    });
+  }
+
+  getStudentDataSync(){
+    this.dbStudentData.allDocs({include_docs:true},(err,resp)=>{
+      console.log(`get All docs sync: ${resp.rows}`);
     });
   }
 
@@ -124,8 +131,24 @@ export class StudentsDatabaseProvider {
 
   createScannedStudent(student){
 
-    student.timestamp = new Date();
-    this.dbScannedStudents.post(student);
+
+    student.timestamp = new Date().toString();
+
+
+    let doc= {
+      'naam': student.naam,
+      'snr': student.snr,
+      'timestamp': new Date().toString()
+    };
+
+
+    this.dbScannedStudents.post(doc, function (err, response) {
+      if (err) { return console.log(err); }
+      // handle response
+      console.log(`student was posted: ${response}`);
+    });
+
+    alert('student saved!');
   }
 
   updateScannedStudents(student){

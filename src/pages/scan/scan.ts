@@ -21,52 +21,61 @@ export class ScanPage {
 
 
   sdata: any;
-  scannedStudent: any;
+  scannedStudent: {};
   scanResults: {};
+  promiseDone: boolean = false;
 
   constructor(private barcodeScanner: BarcodeScanner, public studentService: StudentsDatabaseProvider,  public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    this.studentService.getStudentData().then((data) => {
-      console.log(`student data from studentservice getstudentdata: ${data[0].naam}`);
 
-      this.sdata = data;
+    //this.studentService.getStudentDataSync();
+    this.getAllStudents();
 
-
-    });
     console.log('ionViewDidLoad ScanPage');
   }
 
+  async getAllStudents(){
+
+    await this.studentService.getStudentDataAsync();
+    this.promiseDone = true;
+    this.sdata = this.studentService.studentdata;
+  }
+
+
   async scanStudentCard(){
 
-    this.scanResults = await this.barcodeScanner.scan();
+    await this.getAllStudents();
+    await this.barcodeScanner.scan().then((result)=>{
 
-    this.scannedStudent = await this.findStudent(this.scanResults);
+      this.scanResults = result;
+      this.findStudent(result);
+    });
 
-    console.log(`Scanned card was: ${this.scannedStudent.naam}`);
+    this.studentService.createScannedStudent(this.scannedStudent);
+
+
   }
 
 
 
   findStudent(snrtofind){
+//S000005612963
+    let snr: any = snrtofind.text.slice(6, 11);
 
-    let snr: any = snrtofind.text.substring(1, snrtofind.text.length()-3);
+    console.log(`splice van snr uit scan: ${snr} en origineel was het: ${snrtofind.text}`);
 
-    let student: any;
-
-    for(let i = 0; i < this.sdata.length; i++) {
-      if (snr == this.sdata[i].snr) {
-        student = this.sdata[i];
+    for(let s of this.studentService.studentdata){
+      if(s.snr == snr){
+        console.log(`matched! snr: ${s.snr} naam: ${s.naam}`);
+        this.scannedStudent = s;
       }
-      else
-        student = null;
-
     }
 
-    return student;
-
   }
+
+
 
 
 }

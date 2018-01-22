@@ -20,11 +20,17 @@
   <div *ngIf="scanResults">
 
     <p>Scanned studentnr: {{scanResults.text}}</p>
-    <p>Scanned student name: {{scannedStudent.naam}}</p>
+    <p>Scanned student naam: {{scannedStudent.naam}}</p>
 
 
   </div>
-  <button ion-button (click)="scanStudentCard()">
-    Scan studentcard
-  </button>
+  <div *ngIf="!promiseDone">
+    <p >Loading studentdata, one moment</p>
+  </div>
+  <div *ngIf="promiseDone">
+    <button  ion-button (click)="scanStudentCard()">
+      Scan studentcard
+    </button>
+  </div>
+
 </ion-content>

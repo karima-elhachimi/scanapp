@@ -100,24 +100,26 @@ export class ListPage {
 
   mailCSV(){
 
+    this.saveAsCSV();
     this.email.isAvailable().then((available: boolean) =>{
       if(available) {
+        let mail = {
+          to: '',
+          cc: '',
+          bcc: '',
+          attachments:
+            [this.file.externalRootDirectory+'scannedstudents.csv'],
+          subject: 'Gescande studenten.csv',
+          body: 'CSV bestand met een lijst van gescande studenten',
+          isHtml: true
+        };
         this.email.open(mail);
       }
     });
 
 
 
-    let mail = {
-      to: '',
-      cc: '',
-      bcc: '',
-      attachments:
-        [this.file.externalRootDirectory+'scannedstudents.csv'],
-      subject: 'Gescande studenten.csv',
-      body: 'CSV bestand met een lijst van gescande studenten',
-      isHtml: true
-    };
+
   }
 
 }
