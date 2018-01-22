@@ -51,10 +51,12 @@ export class ScanPage {
 
   findStudent(snrtofind){
 
+    let snr: any = snrtofind.text.substring(1, snrtofind.text.length()-1);
+
     let student: any;
 
     for(let i = 0; i < this.sdata.length; i++) {
-      if (snrtofind.text == this.sdata[i].snr) {
+      if (snr == this.sdata[i].snr) {
         student = this.sdata[i];
       }
       else
