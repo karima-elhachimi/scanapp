@@ -51,7 +51,7 @@ export class ScanPage {
 
   findStudent(snrtofind){
 
-    let snr: any = snrtofind.text.substring(1, snrtofind.text.length()-1);
+    let snr: any = snrtofind.text.substring(1, snrtofind.text.length()-3);
 
     let student: any;
 
