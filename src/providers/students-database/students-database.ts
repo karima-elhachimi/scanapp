@@ -20,13 +20,22 @@ export class StudentsDatabaseProvider {
   remoteStudents: any;
   remoteScanned: any;
 
+
+  cloudantStudents: any;
+  cloudantScans: any;
+
   constructor(public http: HttpClient) {
     console.log('Hello StudentsDatabaseProvider Provider');
 
     //snummers staan in deze database
     this.dbStudentData = new PouchDB('studentdata');
 
-    this.remoteStudents = 'http://127.0.0.1:5984/studentdata';
+    this.remoteStudents = 'https://66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix.cloudant.com/snummers';
+
+
+
+
+
 
     let options1 = {
       live: true,
@@ -39,7 +48,7 @@ export class StudentsDatabaseProvider {
     //gescande studenten staan hier:
     this.dbScannedStudents= new PouchDB('scannedstudents');
 
-    this.remoteScanned = 'http://127.0.0.1:5984/scannedstudents';
+    this.remoteScanned = 'https://66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix.cloudant.com/scannedstudents';
 
     let options2 = {
       live: true,
@@ -71,6 +80,8 @@ export class StudentsDatabaseProvider {
         });
         resolve(this.studentdata);
         console.log("studentdata in service is resolved");
+        //let cloudantStudentsUrl = `https://66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix:46397236f2160349fae89be8a3386ec5628d119f346a8d248482e777c534e723@66420596-e8b3-4761-af06-bb0b3be9e0a6-bluemix.cloudant.com`;
+
 
         this.dbStudentData.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
           this.handleStudentChange(change);
