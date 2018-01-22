@@ -21,6 +21,7 @@ import { HttpClient } from "@angular/common/http";
 import { HttpClientModule } from "@angular/common/http";
 import { File } from '@ionic-native/file';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { AlertController } from 'ionic-angular';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { EmailComposer } from '@ionic-native/email-composer';
     StudentsDatabaseProvider,
     HttpClientModule,
     File,
-    EmailComposer
+    EmailComposer,
+    AlertController
   ]
 })
 export class AppModule {}

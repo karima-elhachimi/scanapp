@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import PouchDB from 'pouchdb';
+import { AlertController } from "ionic-angular";
 
 /*
   Generated class for the StudentsDatabaseProvider provider.
@@ -24,7 +25,7 @@ export class StudentsDatabaseProvider {
   cloudantStudents: any;
   cloudantScans: any;
 
-  constructor(public http: HttpClient) {
+  constructor(private alertCtrl: AlertController, public http: HttpClient) {
     console.log('Hello StudentsDatabaseProvider Provider');
 
     //snummers staan in deze database
@@ -57,6 +58,17 @@ export class StudentsDatabaseProvider {
     };
 
     this.dbScannedStudents.sync(this.remoteScanned, options2);
+  } //einde constructor
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Student created',
+      subTitle: 'The scanned student was saved.',
+      buttons: ['Ok']
+    });
+
+    alert.present();
+
   }
 
 
@@ -159,7 +171,7 @@ export class StudentsDatabaseProvider {
       console.log(`student was posted: ${response}`);
     });
 
-    alert('student saved!');
+    this.presentAlert();
   }
 
   updateScannedStudents(student){
