@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StudentsDatabaseProvider} from "../../providers/students-database/students-database";
 
-import { File } from '@ionic-native/file';
-import { EmailComposer } from '@ionic-native/email-composer';
+
+import { StudentMailerProvider } from "../../providers/student-mailer/student-mailer";
 
 
 /**
@@ -22,7 +22,7 @@ export class ListPage {
 
   scannedStudents: any;
 
-  constructor(private email: EmailComposer, private file: File, public studentService: StudentsDatabaseProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private studentMailer: StudentMailerProvider, public studentService: StudentsDatabaseProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -34,7 +34,9 @@ export class ListPage {
   }
 
 
-  //scannedStudents opslaan als csv die dan doorgestuurd kan worden
-  s
+  mailStudents(){
+    this.studentMailer.mailStudents(this.scannedStudents, '' , '' , '', `Scanned Students on ${new Date()}`);
+  }
+
 
 }
