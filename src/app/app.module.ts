@@ -22,6 +22,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { File } from '@ionic-native/file';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { AlertController } from 'ionic-angular';
+import { StudentMailerProvider } from '../providers/student-mailer/student-mailer';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AlertController } from 'ionic-angular';
     HttpClientModule,
     File,
     EmailComposer,
-    AlertController
+    AlertController,
+    StudentMailerProvider
   ]
 })
 export class AppModule {}
