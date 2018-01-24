@@ -62,13 +62,24 @@ export class StudentsDatabaseProvider {
 
   presentAlert() {
     let alert = this.alertCtrl.create({
-      title: 'Student created',
-      subTitle: 'The scanned student was saved.',
+      title: 'Student opgeslagen',
+      subTitle: 'De gescande studentenkaart is opgeslagen.',
       buttons: ['Ok']
     });
 
     alert.present();
 
+  }
+
+  presentAlertFailed(){
+    let alert = this.alertCtrl.create({
+      title: 'Studentnummer fout',
+      subTitle: 'De gescande studentenkaart wordt niet herkend.',
+      buttons: ['Ok']
+
+    });
+
+    alert.present();
   }
 
 

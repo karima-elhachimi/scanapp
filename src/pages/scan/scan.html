@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Scan a student</ion-title>
+    <ion-title>S-Knap</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,22 +15,40 @@
 
 <ion-content padding>
 
+  <div *ngIf="!promiseDone">
+    <p>De app is aan het laden, geef het een momentje.</p>
+  </div>
 
 
   <div *ngIf="scanResults">
 
-    <p>Scanned studentnr: {{scanResults.text}}</p>
-    <p>Scanned student naam: {{scannedStudent.naam}}</p>
+    <p>Laatst gescande student </p>
+    <p>Scanned studentcard: {{scanResults.text}}</p>
+    <p *ngIf="scannedStudent">Scanned student naam: {{scannedStudent.naam}}</p>
 
+  </div>
+
+  <div *ngIf="!scanResults">
+
+    <p>Tips:</p>
+    <ul>
+      <li>Houdt de studentkaart stil en in een heldere omgeving</li>
+      <li>Gebruik de knop "Scan" om te beginnen.</li>
+      <li>Na het scannen kan je de gegevens bekijken</li>
+    </ul>
 
   </div>
-  <div *ngIf="!promiseDone">
-    <p >Loading studentdata, one moment</p>
-  </div>
-  <div *ngIf="promiseDone">
-    <button  ion-button (click)="scanStudentCard()">
-      Scan studentcard
-    </button>
-  </div>
+
 
 </ion-content>
+<ion-footer >
+  <ion-grid full>
+    <ion-row *ngIf="promiseDone">
+
+        <button  ion-button (click)="scanStudentCard()" full>
+          Scannen
+        </button>
+
+    </ion-row>
+  </ion-grid>
+</ion-footer>

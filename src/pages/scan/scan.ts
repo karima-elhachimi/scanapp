@@ -24,6 +24,7 @@ export class ScanPage {
   scannedStudent: {};
   scanResults: {};
   promiseDone: boolean = false;
+  found: boolean = false;
 
   constructor(private barcodeScanner: BarcodeScanner, public studentService: StudentsDatabaseProvider,  public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -49,11 +50,24 @@ export class ScanPage {
     await this.getAllStudents();
     await this.barcodeScanner.scan().then((result)=>{
 
-      this.scanResults = result;
-      this.findStudent(result);
+
+      if(!result.cancelled) {
+        this.findStudent(result);
+        if(this.found) {
+          this.scanResults = result;
+          this.studentService.createScannedStudent(this.scannedStudent);
+        }
+      }
+
+
+    }, (error) => {
+
+      console.log(`Scanning failed ${error}`);
+      this.scanResults = false;
+
     });
 
-    this.studentService.createScannedStudent(this.scannedStudent);
+
 
 
   }
@@ -63,6 +77,7 @@ export class ScanPage {
   findStudent(snrtofind){
 //S000005612963
     let snr: any = snrtofind.text.slice(6, 11);
+    this.found = false;
 
     console.log(`splice van snr uit scan: ${snr} en origineel was het: ${snrtofind.text}`);
 
@@ -70,8 +85,15 @@ export class ScanPage {
       if(s.snr == snr){
         console.log(`matched! snr: ${s.snr} naam: ${s.naam}`);
         this.scannedStudent = s;
+        this.found = true;
       }
+
+
+
     }
+
+    if(!this.found)
+      this.studentService.presentAlertFailed();
 
   }
 
